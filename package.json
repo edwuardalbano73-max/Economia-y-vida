@@ -1,0 +1,12 @@
+{
+  "name": "lifesim",
+  "version": "1.0.0",
+  "description": "LifeSim - simulador de vida y economía",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
