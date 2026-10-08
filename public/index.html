@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LifeSim - Vida + Economía</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="background"></div>
+
+  <div id="notification" class="notification hidden"></div>
+
+  <main class="app">
+
+    <header class="topbar">
+
+      <div>
+        <div class="logo">Life<span>Sim</span></div>
+        <div class="logo-sub">VIDA + ECONOMÍA</div>
+      </div>
+
+      <div class="header-actions">
+        <button class="small-btn" onclick="saveGame()">💾 Guardar</button>
+        <button class="small-btn danger" onclick="resetGame()">↻ Reiniciar</button>
+      </div>
+
+    </header>
+
+    <section class="profile-card">
+
+      <div class="avatar" id="avatar">👤</div>
+
+      <div class="profile-info">
+        <h1 id="playerName">Alex</h1>
+
+        <p>
+          <span id="playerAge">18</span> años ·
+          <span id="playerJob">Sin trabajo</span>
+        </p>
+
+        <div class="level">
+          Nivel <span id="playerLevel">1</span>
+        </div>
+      </div>
+
+      <div class="main-money">
+        <span>DINERO</span>
+        <strong id="money">$500</strong>
+      </div>
+
+    </section>
+
+    <section class="stats-grid">
+
+      <div class="stat">
+        <span>💵</span>
+        <small>Dinero</small>
+        <strong id="statMoney">$500</strong>
+      </div>
+
+      <div class="stat">
+        <span>⭐</span>
+        <small>Fama</small>
+        <strong id="statFame">0</strong>
+      </div>
+
+      <div class="stat">
+        <span>❤️</span>
+        <small>Salud</small>
+        <strong id="statHealth">100</strong>
+      </div>
+
+      <div class="stat">
+        <span>😊</span>
+        <small>Felicidad</small>
+        <strong id="statHappiness">100</strong>
+      </div>
+
+      <div class="stat">
+        <span>🎓</span>
+        <small>Educación</small>
+        <strong id="statEducation">Secundaria</strong>
+      </div>
+
+      <div class="stat">
+        <span>📊</span>
+        <small>Patrimonio</small>
+        <strong id="statNetWorth">$500</strong>
+      </div>
+
+    </section>
+
+    <nav class="tabs">
+
+      <button class="tab active" onclick="showSection('inicio', this)">
+        🏠 Inicio
+      </button>
+
+      <button class="tab" onclick="showSection('trabajo', this)">
+        💼 Trabajo
+      </button>
+
+      <button class="tab" onclick="showSection('estudios', this)">
+        🎓 Estudios
+      </button>
+
+      <button class="tab" onclick="showSection('fama', this)">
+        ⭐ Fama
+      </button>
+
+      <button class="tab" onclick="showSection('dinero', this)">
+        💰 Dinero
+      </button>
+
+      <button class="tab" onclick="showSection('compras', this)">
+        🛒 Compras
+      </button>
+
+      <button class="tab" onclick="showSection('acciones', this)">
+        🎲 Acciones
+      </button>
+
+    </nav>
+
+    <!-- INICIO -->
+
+    <section id="inicio" class="section active">
+
+      <div class="section-title">
+        <div>
+          <h2>Tu vida</h2>
+          <p>Decide qué hacer con tu vida.</p>
+        </div>
+
+        <button class="primary" onclick="advanceMonth()">
+          ⏭️ Pasar mes
+        </button>
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="card-icon">📅</div>
+
+          <h3>Calendario</h3>
+
+          <p id="dateText">
+            Enero, año 1
+          </p>
+
+          <div class="mini-info">
+            <span>Edad</span>
+            <strong id="ageText">18 años</strong>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-icon">🏠</div>
+
+          <h3>Vivienda</h3>
+
+          <p id="homeText">
+            Sin vivienda
+          </p>
+
+          <button class="secondary" onclick="showSectionByName('compras')">
+            Buscar vivienda
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-icon">🎯</div>
+
+          <h3>Objetivo</h3>
+
+          <p id="goalText">
+            Consigue $10,000
+          </p>
+
+          <div class="progress">
+            <div id="goalProgress"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="event-box">
+
+        <div class="event-header">
+          <span>📰</span>
+          <div>
+            <h3>Noticias de tu vida</h3>
+            <p>Los últimos acontecimientos.</p>
+          </div>
+        </div>
+
+        <div id="newsList"></div>
+
+      </div>
+
+    </section>
+
+    <!-- TRABAJO -->
+
+    <section id="trabajo" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>💼 Trabajo</h2>
+          <p>Consigue un empleo y gana dinero.</p>
+        </div>
+      </div>
+
+      <div id="jobsGrid" class="cards"></div>
+
+    </section>
+
+    <!-- ESTUDIOS -->
+
+    <section id="estudios" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>🎓 Educación</h2>
+          <p>Estudia para desbloquear mejores oportunidades.</p>
+        </div>
+      </div>
+
+      <div id="educationGrid" class="cards"></div>
+
+    </section>
+
+    <!-- FAMA -->
+
+    <section id="fama" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>⭐ Fama</h2>
+          <p>Construye tu carrera y conviértete en alguien conocido.</p>
+        </div>
+      </div>
+
+      <div class="fame-banner">
+
+        <div>
+          <span>Tu fama</span>
+          <strong id="fameBig">0</strong>
+        </div>
+
+        <div class="fame-level">
+          <span>Nivel de fama</span>
+          <strong id="fameTitle">Desconocido</strong>
+        </div>
+
+      </div>
+
+      <div id="fameGrid" class="cards"></div>
+
+    </section>
+
+    <!-- DINERO -->
+
+    <section id="dinero" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>💰 Finanzas</h2>
+          <p>Administra tu dinero.</p>
+        </div>
+      </div>
+
+      <div class="finance-grid">
+
+        <div class="finance-card">
+          <span>💵 Efectivo</span>
+          <strong id="cashValue">$500</strong>
+        </div>
+
+        <div class="finance-card">
+          <span>🏦 Banco</span>
+          <strong id="bankValue">$0</strong>
+        </div>
+
+        <div class="finance-card">
+          <span>📈 Inversiones</span>
+          <strong id="investmentValue">$0</strong>
+        </div>
+
+        <div class="finance-card">
+          <span>📊 Patrimonio</span>
+          <strong id="netWorthValue">$500</strong>
+        </div>
+
+      </div>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="card-icon">🏦</div>
+
+          <h3>Banco</h3>
+
+          <p>Guarda tu dinero para mantenerlo seguro.</p>
+
+          <div class="input-row">
+            <input id="bankAmount" type="number" placeholder="Cantidad">
+            <button class="primary" onclick="deposit()">Depositar</button>
+            <button class="secondary" onclick="withdraw()">Retirar</button>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <div class="card-icon">📈</div>
+
+          <h3>Inversiones</h3>
+
+          <p>
+            Invierte dinero ficticio y acepta el riesgo del mercado.
+          </p>
+
+          <div class="input-row">
+            <input id="investmentAmount" type="number" placeholder="Cantidad">
+            <button class="primary" onclick="invest()">Invertir</button>
+          </div>
+
+          <button class="secondary full" onclick="sellInvestments()">
+            Vender inversiones
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- COMPRAS -->
+
+    <section id="compras" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>🛒 Compras</h2>
+          <p>Compra cosas y mejora tu vida.</p>
+        </div>
+      </div>
+
+      <div id="shopGrid" class="cards"></div>
+
+    </section>
+
+    <!-- ACCIONES -->
+
+    <section id="acciones" class="section">
+
+      <div class="section-title">
+        <div>
+          <h2>🎲 Acciones</h2>
+          <p>Toma decisiones que pueden cambiar tu vida.</p>
+        </div>
+      </div>
+
+      <div id="actionsGrid" class="cards"></div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
